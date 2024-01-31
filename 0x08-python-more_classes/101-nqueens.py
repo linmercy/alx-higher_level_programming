@@ -5,38 +5,27 @@ def is_safe(board, row, col, N):
     """Check if it's safe to place a queen at position (row, col)."""
     # Check the row on the left side
     for i in range(col):
-        if board[row][i] == 1:
+        if board[i] == row or \
+           board[i] - i == row - col or \
+           board[i] + i == row + col:
             return False
-
-    # Check upper diagonal on the left side
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-
-    # Check lower diagonal on the left side
-    for i, j in zip(range(row, N, 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-
     return True
 
-def print_solution(board, N):
+def print_solution(board):
     """Print the N queens solution."""
-    for i in range(N):
-        print(" ".join(["Q" if board[i][j] == 1 else "." for j in range(N)]))
-    print()
+    result = [[i, board[i]] for i in range(len(board))]
+    print(result)
 
 def solve_nqueens(board, col, N):
     """Recursively solve the N queens problem."""
     if col == N:
-        print_solution(board, N)
+        print_solution(board)
         return
 
-    for i in range(N):
-        if is_safe(board, i, col, N):
-            board[i][col] = 1
+    for row in range(N):
+        if is_safe(board, row, col, N):
+            board[col] = row
             solve_nqueens(board, col + 1, N)
-            board[i][col] = 0
 
 def nqueens(N):
     """Main function to solve the N queens problem."""
@@ -50,7 +39,7 @@ def nqueens(N):
         print("N must be at least 4")
         sys.exit(1)
 
-    board = [[0 for _ in range(N)] for _ in range(N)]
+    board = [-1 for _ in range(N)]
     solve_nqueens(board, 0, N)
 
 if __name__ == "__main__":
