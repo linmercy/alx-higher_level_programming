@@ -2,7 +2,7 @@
 
 const cProgramming = 'C is fun';
 const pythonProgramming = 'Python is cool';
-const javascriptProgramming = 'Javascript is amaizing';
+const javascriptProgramming = 'JavaScript is amazing';
 
 console.log(cProgramming);
 console.log(pythonProgramming);
